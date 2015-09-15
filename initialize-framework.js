@@ -85,7 +85,8 @@
         _this.length = array.length;
         return (_this);
     }
-      //
+
+    //
       win.fw = fw;
       fw.fn = fwInit.prototype;
 })( window );
