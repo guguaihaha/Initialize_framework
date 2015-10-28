@@ -17,9 +17,7 @@
         reg_html = /^\s*<(\w+|!)[^>]*>/,
         reg_selector = /^(?:#([\w\-]+)|(\w+)|\.([\w\-]+))$/;
         //
-       var fw = function(params){
-           return new fwInit(params);
-       }
+
        var fwInit = function(params){
               if(!params){
                   return this;
@@ -77,6 +75,26 @@
              }
 
        }
+
+    //
+    var fw = function(params){
+        return new fwInit(params);
+    }
+    //
+    fw.extend = function(){
+
+
+    }
+    fw.extend({
+
+    })
+    // fn.prototype extend function
+    fwInit.fn = fwInit.prototype = {
+        constructure:fwInit
+    }
+
+
+
     //common method
     function makeArray(array,_this){
         for(var i = 0; i<array.length;i++){
@@ -85,8 +103,9 @@
         _this.length = array.length;
         return (_this);
     }
+    //
 
     //
       win.fw = fw;
-      fw.fn = fwInit.prototype;
+
 })( window );
