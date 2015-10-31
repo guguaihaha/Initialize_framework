@@ -86,11 +86,139 @@
 
     }
     fw.extend({
+        ready:function(){
+
+        },
+        each:function(object,fn){},
+        parseJSON:function(){},
+        trim:function(){},
+        param:function(){},
+        error:function(){},
+        isFunction:function(){},
+        isEmptyObject:function(){},
+        isPlainObject:function(){},
+        isArray:function(){},
+        ajax:function(){},
+        get:function(){},
+        getJSON:function(){},
+        getScript:function(){},
+        post:function(){}
 
     })
     // fn.prototype extend function
     fwInit.fn = fwInit.prototype = {
-        constructure:fwInit
+        constructure:fwInit,
+        find:function(selector){},
+        eq:function(index){
+            var that = this;
+            return that[index];
+        },
+        first:function(){
+            var that = this;
+            return that[0];
+        },
+        last:function(){
+            var that = this;
+            var lastIndex = that.length - 1;
+            return that[lastIndex];
+        },
+        hasClass:function(className){},
+        filter:function(expr){},
+        children:function(){},
+        closest:function(){},
+        find:function(){},
+        next:function(){
+            var that = this;
+            var array = [];
+            array.push(that[0].nextSibling);
+            makeArray(array,that);
+            return that;
+        },
+        nextAll:function(){},
+        nextUntil:function(){},
+        offsetParent:function(){},
+        parent:function(){},
+        parents:function(){},
+        parentsUntil:function(){},
+        prev:function(){},
+        prevall:function(){},
+        prevUntil:function(){},
+        siblings:function(){},
+        attr:function(){},
+        removeAttr:function(){},
+        addClass:function(){},
+        removeClass:function(){},
+        data:function(){},
+        removeDate:function(){},
+        html:function(){},
+        text:function(){},
+        val:function(){},
+        show:function(){},
+        hide:function(){},
+        slideDown:function(){},
+        slideUp:function(){},
+        fadeIn:function(){},
+        fadeOut:function(){},
+        animate:function(){},
+        stop:function(){},
+        css:function(){},
+        offset:function(){},
+        position:function(){},
+        scrollTop:function(){},
+        scrollLeft:function(){},
+        height:function(){},
+        width:function(){},
+        innerHeight:function(){},
+        innerWidth:function(){},
+        outerHeight:function(){},
+        outerWidth:function(){},
+        append:function(){},
+        appendTo:function(){},
+        prepend:function(){},
+        prependTo:function(){},
+        after:function(){},
+        before:function(){},
+        insertAfter:function(){},
+        insertBefore:function(){},
+        wrap:function(){},
+        unwrap:function(){},
+        wrapAll:function(){},
+        wrapInner:function(){},
+        replaceWith:function(){},
+        replaceAll:function(){},
+        empty:function(){},
+        remove:function(){},
+        clone:function(){},
+        on:function(){},
+        off:function(){},
+        bind:function(){},
+        unbind:function(){},
+        one:function(){},
+        live:function(){},
+        die:function(){},
+        blur:function(){},
+        change:function(){},
+        click:function(){},
+        dbclick:function(){},
+        error:function(){},
+        focus:function(){},
+        focusin:function(){},
+        focusout:function(){},
+        keydown:function(){},
+        keypress:function(){},
+        keyup:function(){},
+        mousedown:function(){},
+        mouseenter:function(){},
+        mouseleave:function(){},
+        mousemove:function(){},
+        mouseout:function(){},
+        mouseover:function(){},
+        mouseup:function(){},
+        resize:function(){},
+        scroll:function(){},
+        select:function(){},
+        submit:function(){},
+        unload:function(){}
     }
 
 
