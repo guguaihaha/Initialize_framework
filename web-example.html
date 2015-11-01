@@ -4,39 +4,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>web插件测试界面</title>
     <style type="text/css">
-        ul{position: relative;height:40px;padding: 0;}
-        ul,li{list-style: none;padding: 0;margin: 0;}
-        ul li{float:left;width:100px;display: block;line-height: 40px; border-bottom: 1px solid #ccc;}
-        ul li a{display:block;text-decoration: none; color: #000;}
-        ul{display:block;width:300px;margin:0 auto;}
-        .clear{clear:both;}
+        .delete{position: relative;width:300px;height:100px;background: #ccc;}
+        .hide{display: none;background: #fff;border:1px solid #f00;width:100px;height:30px;}
+        .hide p{width:50px;float: left;margin: 0;line-height: 30px;}
     </style>
 </head>
 <body>
-<ul>
-    <li><a href="javascript:void(0);">111</a></li>
-    <li><a href="javascript:void(0);">222</a></li>
-    <li><a href="javascript:void(0);">333</a></li>
-
-</ul>
+  <div class="delete">
+      <a href="javascript:void(0);">删除按钮</a>
+      <div class="hide confirm-selector-showArea confirm-selector-all"><p>确认</p><p class="confirm-cancel confirm-selector-cancel">取消</p></div>
+  </div>
+  <div class="delete">
+      <a href="javascript:void(0);">删除按钮</a>
+      <div class="hide confirm-selector-showArea confirm-selector-all"><p>确认</p><p class="confirm-cancel confirm-selector-cancel">取消</p></div>
+  </div>
 </body>
 </html>
 <script type="text/javascript" src="jquery-1.8.3.js"></script>
 <script type="text/javascript" src="jq-common-web.js"></script>
 <script type="text/javascript">
-$("ul li").drag({
-    dragHand:["a"],
-    moveDirection:"x",
-    mousedown: function (ev) {
-    },
-    mousemove: function (ev) {
+$(".delete a").confirm({
 
-    },
-    realmousemove: function (ev) {
-
-    },
-    mouseup: function (ev) {
-
-    }
 })
 </script>

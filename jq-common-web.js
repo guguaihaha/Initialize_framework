@@ -629,6 +629,63 @@
     }
     ///////////************************/////////////
     //
+    $.fn.confirm = function(options){
+        var defaults = {
+            eventName:"click",//默认触发方法
+            autoClose:true,//触发confirm是否关闭已有其他匹配弹出框
+            hideClassName:"confirm-selector-all",//全局隐藏class的样式名称,被标示后点击window就会触发
+            unHideClassName:"confirm-selector-showArea",//全局显示区域
+            cancelClassName:"confirm-selector-cancel",
+            loadEvent:function(){}//触发弹出框后加载的事件对象;param:第一个参数弹出框对象本身(jquery对象)
+        }
+        var options = $.extend(defaults,options);
+        var that = this;
+        //是否隐藏,默认隐藏
+        var hideStatus = true;
+        //load FN
+        function winHide(){
+            if(hideStatus){
+                $("."+options.hideClassName).hide();
+                $(window).unbind("click",winHide);
+            }
+        }
+
+        $(that).each(function(){
+            var $this = $(this);
+            $this.unbind(options.eventName).bind(options.eventName,function(){
+                //重置状态
+                 hideStatus = true;
+                var $next = $(this).next();
+                //
+                if(options.autoClose){
+                    $("."+options.hideClassName).hide();
+                }
+                //
+                $next.show();
+                //保险起见,再次卸载winHide方法
+                $(window).unbind("click",winHide);
+                //触发隐藏事件
+                setTimeout(function(){$(window).unbind("click",winHide).bind("click",winHide);},50);
+                //触发阻止隐藏方法
+                $("."+options.unHideClassName).unbind("mouseover").bind("mouseover",function(){
+                    hideStatus = false;
+                })
+                $("."+options.unHideClassName).unbind("mouseout").bind("mouseout",function(){
+                    hideStatus = true;
+                })
+                //
+                $("."+options.cancelClassName).unbind("click").bind("click",function(){
+                    $("."+options.hideClassName).hide();
+                    $(window).unbind("click",winHide);
+                    hideStatus = true;
+                })
+                options.loadEvent.call(this,$next);
+
+            });
+        })
+
+
+    }
 
 
     //原型拓展
