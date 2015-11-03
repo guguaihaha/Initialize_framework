@@ -769,10 +769,13 @@
                     hideStatus = true;
                 })
                 //
+                options.success.call($target);
             })
 
         });
     }
+    //
+
 
 
 
