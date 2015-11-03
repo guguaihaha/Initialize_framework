@@ -735,6 +735,45 @@
             //
         })
     }
+    //
+    $.fn.select = function(){
+        var defaults = {
+            eventName:"click focus",
+            sibClassName:"select-dialog-siblings",//输入内容显示下拉框样式
+            success:function(){}//下拉选项卡加载完毕后再入事件,this指向下拉显示框，第一个参数是输入内容数值
+        }
+        var options = $.extend(defaults,options);
+        var that = this;
+        var hideStatus = true;
+        function toggleHide(){
+                 if(hideStatus){
+                     $("."+options.sibClassName).hide();
+                     $(window).unbind("click",toggleHide);
+                 }
+        }
+        $(that).each(function(){
+            var _this = this;
+            $(_this).unbind(options.eventName).bind(options.eventName,function(){
+                var $target = $(this).parent().find("."+options.sibClassName);
+                $target.show();
+                hideStatus = true;
+                //
+                $(window).unbind("click",toggleHide);
+                //
+                setTimeout(function(){$(window).unbind("click",toggleHide).bind("click",toggleHide)},50)
+                //
+                $target.unbind("mouseover").bind("mouseover",function(){
+                    hideStatus = false;
+                })
+                $target.unbind("mouseout").bind("mouseout",function(){
+                    hideStatus = true;
+                })
+                //
+            })
+
+        });
+    }
+
 
 
     //原型拓展
