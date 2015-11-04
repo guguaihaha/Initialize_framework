@@ -690,7 +690,12 @@
     $.fn.search = function(options){
         var defaults = {
              sibClassName:"search-dialog-siblings",//输入内容显示下拉框样式
-             success:function(){}//下拉选项卡加载完毕后再入事件,this指向下拉显示框，第一个参数是输入内容数值
+             autoPanel:false,//是否开启自动推荐功能
+             panelName:"search-panel-siblings",//配合autoPanel使用
+             panelSuccess:function(){},//panel成功后载入事件
+             success:function(){},//下拉选项卡加载完毕后再入事件,this指向下拉显示框，第一个参数是输入内容数值
+             enterEvent:function(){}
+
         }
         var options = $.extend(defaults,options);
         var that = this;
@@ -698,6 +703,7 @@
             var $this = $(this);
             //
             var hideStatus = true;
+            var panelStatus = true;
             //
             function toggleHide(){
                 if(hideStatus){
@@ -706,15 +712,51 @@
                 }
             }
             //
-            $this.unbind("keyup").bind("keyup",function(){
+            function toggleFHide(){
+                if(panelStatus){
+                    $("."+options.panelName).hide();
+                    $(window).unbind("click",toggleFHide);
+                }
+            }
+            //
+            if(options.autoPanel){
+                $this.unbind("click").bind("click",function(){
+                    var $target = $(this).parent().find("."+options.panelName);
+                    //
+                    if(panelStatus){
+                        $target.show();
+                    }
+                    //
+                    $(window).unbind("click",toggleFHide);
+                    //
+                    setTimeout(function(){$(window).unbind("click",toggleFHide).bind("click",toggleFHide)},50);
+                    //
+                    $target.unbind("mouseover").bind("mouseover",function(){
+                        panelStatus = false;
+                    })
+                    $target.unbind("mouseout").bind("mouseout",function(){
+                        panelStatus = true;
+                    })
+                    //
+                    options.panelSuccess.call($target);
+                })
+            }
+
+            //
+            $this.unbind("keyup").bind("keyup",function(ev){
                 hideStatus = true;
                 var value = $.trim($(this).val());
                 var $target = $(this).parent().find("."+options.sibClassName);
                 if(value){
                     $target.show();
+                    panelStatus = true;
+                    toggleFHide();
                 }else{
                     $target.hide();
+                    //
+                    $(this).click();
                 }
+                $(this).next().val("");
                 //
                 $(window).unbind("click",toggleHide);
                 //
@@ -726,6 +768,47 @@
                 $target.unbind("mouseout").bind("mouseout",function(){
                     hideStatus = true;
                 })
+                //key enter
+                 function moveDirection(dire,$target){
+                     var $li = $target.find("li");
+                     var firstStep = $target.find("li.select-spc-choose");
+
+                     if(dire == "up"){
+                         if(firstStep.length == 0){
+                             firstStep = $li.first();
+                             firstStep.addClass("select-spc-choose");
+                             return
+                         }
+                     var prev = firstStep.prev();
+                         if(prev.length == 0){
+                             $li.last().addClass("select-spc-choose");
+                             return
+                         }
+                         prev.addClass("select-spc-choose");
+                     }else if(dire == "down"){
+                         if(firstStep.length == 0){
+                             firstStep = $li.last();
+                             firstStep.addClass("select-spc-choose");
+                             return
+                         }
+                         var next = firstStep.next();
+                         if(next.length == 0){
+                             $li.first().addClass("select-spc-choose");
+                             return
+                         }
+                         next.addClass("select-spc-choose");
+                     }
+                 }
+                //
+                var evCode = ev.keyCode;
+                if(evCode == 13){
+                    var $firstStep = $target.find("li.select-spc-choose");
+                   options.enterEvent.call($firstStep);
+                }else if(evCode == 38){
+                    moveDirection("up");
+                }else if(evCode == 40){
+                    moveDirection("down");
+                }
                 //
                 options.success.call($target,value);
             })
@@ -775,6 +858,7 @@
         });
     }
     //
+
 
 
 

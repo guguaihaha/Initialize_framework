@@ -7,8 +7,9 @@
         .delete{position: relative;width:300px;height:100px;background: #ccc;}
         .hide{display: none;background: #fff;border:1px solid #f00;width:100px;height:30px;}
         .hide p{width:50px;float: left;margin: 0;line-height: 30px;}
-        .search{width:100px; height: 300px; background: #ccc;}
+        .search{width:100px; height: 300px; background: #ccc;position: relative;}
         .search-show{width:100px;height:200px;background: #fff;display: none;}
+        .search-panel{width:100px;height:300px;background:#f00;display: none;position: absolute;left:0;top:30px;}
         .select{width:100px;height: 40px;background: #ff0;position: relative; margin: 0 auto;}
         .select input{width:100%;height:20px; background: #fff;border:0;}
         .select-window{
@@ -32,6 +33,7 @@
       <input type="text" name="" class="search-input" />
       <div></div>
       <div class="search-show search-dialog-siblings"></div>
+      <div class="search-panel search-panel-siblings"></div>
   </div>
   <div class="select">
           <input type="text" />
@@ -47,7 +49,7 @@ $(".delete a").confirm({
 
 })
     $(".search input").search({
-
+        autoPanel:true
     });
     $(".select input").select({
 
