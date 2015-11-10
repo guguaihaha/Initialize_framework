@@ -722,8 +722,9 @@
             if(options.autoPanel){
                 $this.unbind("click").bind("click",function(){
                     var $target = $(this).parent().find("."+options.panelName);
+                    var value = $.trim($(this).val());
                     //
-                    if(panelStatus){
+                    if(panelStatus&&!value){
                         $target.show();
                     }
                     //
@@ -803,7 +804,7 @@
                 var evCode = ev.keyCode;
                 if(evCode == 13){
                     var $firstStep = $target.find("li.select-spc-choose");
-                   options.enterEvent.call($firstStep);
+                    options.enterEvent.call($firstStep);
                 }else if(evCode == 38){
                     moveDirection("up");
                 }else if(evCode == 40){
