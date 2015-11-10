@@ -859,10 +859,6 @@
     }
     //
 
-
-
-
-
     //原型拓展
     Date.prototype.Format = function (fmt) {
         var o = {
