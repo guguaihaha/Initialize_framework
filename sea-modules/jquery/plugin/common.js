@@ -1,6 +1,6 @@
-define("../jquery/jquery", [ "jquery" ], function(require, exports, module) {
+define(function(require, exports, module) {
     //
-    var $ = require("jquery");
+    var $ = require("../jquery/1.10.1/jquery");
     //
     var common = {
         //cookie
@@ -227,8 +227,8 @@ define("../jquery/jquery", [ "jquery" ], function(require, exports, module) {
         }
     }
     //
-
     module.exports = common;
+    module.id = "common";
     //
     //原型拓展
     Date.prototype.Format = function (fmt) {
