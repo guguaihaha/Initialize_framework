@@ -567,7 +567,7 @@ define("../jquery/jquery", [ "jquery" ], function(require, exports, module) {
         var defaults = {
             eventName:"click focus",
             sibClassName:"select-dialog-siblings",//输入内容显示下拉框样式
-            success:function(){}//下拉选项卡加载完毕后再入事件,this指向下拉显示框，第一个参数是输入内容数值
+            success:function(){}//下拉选项卡加载完毕后再入事件,this指向下拉显示框
         }
         var options = $.extend(defaults,options);
         var that = this;
